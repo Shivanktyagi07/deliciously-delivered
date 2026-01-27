@@ -1,10 +1,19 @@
-import { MapPin, ChevronDown, Search, ShoppingCart, User, Menu } from "lucide-react";
+import {
+  MapPin,
+  ChevronDown,
+  Search,
+  ShoppingCart,
+  User,
+  Menu,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [cartCount] = useState(3);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 w-full glass border-b border-border/50">
@@ -13,7 +22,9 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-              <span className="text-xl font-bold text-primary-foreground">F</span>
+              <span className="text-xl font-bold text-primary-foreground">
+                F
+              </span>
             </div>
             <span className="text-xl font-bold text-foreground">FoodieGo</span>
           </div>
@@ -21,7 +32,9 @@ const Header = () => {
           {/* Location Selector - Desktop */}
           <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-secondary rounded-xl cursor-pointer hover:bg-secondary/80 transition-colors">
             <MapPin className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">Mumbai, India</span>
+            <span className="text-sm font-medium text-foreground">
+              Mumbai, India
+            </span>
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
           </div>
 
@@ -50,7 +63,12 @@ const Header = () => {
             </Button>
 
             {/* User - Desktop */}
-            <Button variant="ghost" size="icon" className="hidden md:flex">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hidden md:flex"
+              onClick={() => navigate("/profile")}
+            >
               <User className="h-5 w-5" />
             </Button>
 
@@ -60,9 +78,9 @@ const Header = () => {
             </Button>
 
             {/* Mobile Menu */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
