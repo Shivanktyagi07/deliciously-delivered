@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "@/assets/food 2.jpeg";
 
 const Header = () => {
   const [cartCount] = useState(3);
@@ -20,13 +21,15 @@ const Header = () => {
       <div className="container mx-auto">
         <div className="flex h-16 items-center justify-between gap-4">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-              <span className="text-xl font-bold text-primary-foreground">
-                F
-              </span>
+          <div className="flex items-center gap-1 cursor-pointer">
+            <div className="flex h-30 w-20 items-center justify-center">
+              <img
+                src={logo}
+                alt="FoodieGo Logo"
+                className="h-full w-full object-contain"
+              />
             </div>
-            <span className="text-xl font-bold text-foreground">FoodieGo</span>
+            <span className="text-xl font-bold text-foreground">Foodzzy</span>
           </div>
 
           {/* Location Selector - Desktop */}
@@ -73,7 +76,11 @@ const Header = () => {
             </Button>
 
             {/* Login Button - Desktop */}
-            <Button variant="default" className="hidden md:flex">
+            <Button
+              variant="default"
+              className="hidden md:flex"
+              onClick={() => navigate("/Signup")}
+            >
               Sign In
             </Button>
 
