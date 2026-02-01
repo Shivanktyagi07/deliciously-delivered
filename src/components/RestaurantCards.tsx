@@ -1,6 +1,7 @@
 import { Star, Clock, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCity } from "@/contexts/CityContext";
+import { useNavigate } from "react-router-dom";
 import restaurant1 from "@/assets/restaurant-1.jpg";
 import restaurant2 from "@/assets/restaurant-2.jpg";
 import restaurant3 from "@/assets/restaurant-3.jpg";
@@ -85,10 +86,15 @@ const restaurants = [
 
 const RestaurantCards = () => {
   const { selectedCity } = useCity();
+  const navigate = useNavigate();
   
   const filteredRestaurants = restaurants.filter((restaurant) =>
     restaurant.cities.includes(selectedCity.id)
   );
+
+  const handleRestaurantClick = (restaurantId: number) => {
+    navigate(`/restaurant/${restaurantId}`);
+  };
 
   return (
     <section className="py-12 bg-secondary/30">
@@ -121,7 +127,8 @@ const RestaurantCards = () => {
             {filteredRestaurants.map((restaurant) => (
               <div
                 key={restaurant.id}
-                className="card-hover group bg-card rounded-2xl overflow-hidden border border-border/50"
+                className="card-hover group bg-card rounded-2xl overflow-hidden border border-border/50 cursor-pointer"
+                onClick={() => handleRestaurantClick(restaurant.id)}
               >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -170,10 +177,26 @@ const RestaurantCards = () => {
                 </div>
 
                 <div className="flex gap-2 pt-2">
-                  <Button variant="hero" size="sm" className="flex-1">
+                  <Button 
+                    variant="hero" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRestaurantClick(restaurant.id);
+                    }}
+                  >
                     Order Now
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRestaurantClick(restaurant.id);
+                    }}
+                  >
                     View Menu
                   </Button>
                 </div>
