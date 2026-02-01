@@ -22,6 +22,7 @@ interface CityContextType {
   setSelectedCity: (city: City) => void;
 }
 
+// City context for global state management
 const CityContext = createContext<CityContextType | undefined>(undefined);
 
 export const CityProvider = ({ children }: { children: ReactNode }) => {
