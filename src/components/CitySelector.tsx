@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { MapPin, ChevronDown, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,20 +6,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const cities = [
-  { id: "prayagraj", name: "Prayagraj", popular: true },
-  { id: "lucknow", name: "Lucknow", popular: true },
-  { id: "varanasi", name: "Varanasi", popular: true },
-  { id: "kanpur", name: "Kanpur", popular: true },
-  { id: "agra", name: "Agra", popular: false },
-  { id: "noida", name: "Noida", popular: false },
-  { id: "ghaziabad", name: "Ghaziabad", popular: false },
-  { id: "meerut", name: "Meerut", popular: false },
-];
+import { useCity, cities } from "@/contexts/CityContext";
 
 const CitySelector = () => {
-  const [selectedCity, setSelectedCity] = useState(cities[0]);
+  const { selectedCity, setSelectedCity } = useCity();
 
   return (
     <section className="py-6 bg-secondary/30">
