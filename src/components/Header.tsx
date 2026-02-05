@@ -65,7 +65,7 @@ const Header = () => {
               )}
             </Button>
 
-            {/* User - Desktop */}
+            {/* User Profile - Desktop */}
             <Button
               variant="ghost"
               size="icon"
@@ -76,11 +76,7 @@ const Header = () => {
             </Button>
 
             {/* Login Button - Desktop */}
-            <Button
-              variant="default"
-              className="hidden md:flex"
-              onClick={() => navigate("/Signup")}
-            >
+            <Button variant="default" className="hidden md:flex">
               Sign In
             </Button>
 
