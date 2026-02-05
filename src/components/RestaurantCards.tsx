@@ -1,5 +1,7 @@
 import { Star, Clock, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCity } from "@/contexts/CityContext";
+import { useNavigate } from "react-router-dom";
 import restaurant1 from "@/assets/restaurant-1.jpg";
 import restaurant2 from "@/assets/restaurant-2.jpg";
 import restaurant3 from "@/assets/restaurant-3.jpg";
@@ -18,6 +20,7 @@ const restaurants = [
     priceForTwo: 600,
     discount: "20% OFF up to ₹100",
     promoted: true,
+    cities: ["prayagraj", "lucknow", "varanasi"],
   },
   {
     id: 2,
@@ -29,6 +32,7 @@ const restaurants = [
     priceForTwo: 800,
     discount: "Free Delivery",
     promoted: false,
+    cities: ["lucknow", "noida", "ghaziabad"],
   },
   {
     id: 3,
@@ -40,6 +44,7 @@ const restaurants = [
     priceForTwo: 450,
     discount: "Buy 1 Get 1 Free",
     promoted: true,
+    cities: ["prayagraj", "varanasi", "kanpur"],
   },
   {
     id: 4,
@@ -51,6 +56,7 @@ const restaurants = [
     priceForTwo: 350,
     discount: "50% OFF on first order",
     promoted: false,
+    cities: ["prayagraj", "lucknow", "kanpur", "noida"],
   },
   {
     id: 5,
@@ -62,6 +68,7 @@ const restaurants = [
     priceForTwo: 400,
     discount: null,
     promoted: false,
+    cities: ["lucknow", "noida", "ghaziabad", "meerut"],
   },
   {
     id: 6,
@@ -73,10 +80,22 @@ const restaurants = [
     priceForTwo: 500,
     discount: "30% OFF on cakes",
     promoted: true,
+    cities: ["prayagraj", "varanasi", "agra"],
   },
 ];
 
 const RestaurantCards = () => {
+  const { selectedCity } = useCity();
+  const navigate = useNavigate();
+  
+  const filteredRestaurants = restaurants.filter((restaurant) =>
+    restaurant.cities.includes(selectedCity.id)
+  );
+
+  const handleRestaurantClick = (restaurantId: number) => {
+    navigate(`/restaurant/${restaurantId}`);
+  };
+
   return (
     <section className="py-12 bg-secondary/30">
       <div className="container mx-auto">
@@ -94,12 +113,23 @@ const RestaurantCards = () => {
           </Button>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {restaurants.map((restaurant) => (
-            <div
-              key={restaurant.id}
-              className="card-hover group bg-card rounded-2xl overflow-hidden border border-border/50"
-            >
+        {filteredRestaurants.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              No restaurants available in {selectedCity.name} yet.
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Try selecting a different city.
+            </p>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredRestaurants.map((restaurant) => (
+              <div
+                key={restaurant.id}
+                className="card-hover group bg-card rounded-2xl overflow-hidden border border-border/50 cursor-pointer"
+                onClick={() => handleRestaurantClick(restaurant.id)}
+              >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
                 <img
@@ -147,17 +177,34 @@ const RestaurantCards = () => {
                 </div>
 
                 <div className="flex gap-2 pt-2">
-                  <Button variant="hero" size="sm" className="flex-1">
+                  <Button 
+                    variant="hero" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRestaurantClick(restaurant.id);
+                    }}
+                  >
                     Order Now
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRestaurantClick(restaurant.id);
+                    }}
+                  >
                     View Menu
                   </Button>
                 </div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="flex justify-center mt-8 md:hidden">
           <Button variant="outline">View All Restaurants</Button>
