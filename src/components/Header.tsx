@@ -25,7 +25,7 @@ const Header = () => {
             <div className="flex h-30 w-20 items-center justify-center">
               <img
                 src={logo}
-                alt="FoodieGo Logo"
+                alt="Logo"
                 className="h-full w-full object-contain"
               />
             </div>
@@ -76,9 +76,9 @@ const Header = () => {
             </Button>
 
             {/* Login Button - Desktop */}
-            <Button variant="default" className="hidden md:flex">
+            {/* <Button variant="default" className="hidden md:flex">
               Sign In
-            </Button>
+            </Button> */}
 
             {/* Mobile Menu */}
             <Button
